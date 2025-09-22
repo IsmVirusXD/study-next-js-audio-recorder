@@ -11,13 +11,13 @@ export default function Home() {
   const [languegeSeleccted, setLanguageSelected] =
     useState<string>("Português");
   const [audioRecorderSeleccted, setAudioRecorderSelected] =
-    useState<string>("Biblioteca02");
+    useState<string>("Nativo");
   const [transcriptionSeleccted, setTranscriptionSelected] =
     useState<string>("Biblioteca06");
 
   const language = ["Português"];
   // , "Inglês", "Espanhol"]
-  const audioRecord = ["Biblioteca01", "Biblioteca02", "Biblioteca03"];
+  const audioRecord = ["Nativo", "Biblioteca02", "Biblioteca03"];
   const trancription = ["Biblioteca04", "Biblioteca05", "Biblioteca06"];
 
   return (
