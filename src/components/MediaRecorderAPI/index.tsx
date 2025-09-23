@@ -92,6 +92,7 @@ export function MediaRecorderApi() {
           </p>
         </div>
       )}
+      {<audio controls src={audioURL} />}
       {/* Adudio Player */}
       {/* {audioURL ? (
         <>
@@ -105,11 +106,10 @@ export function MediaRecorderApi() {
               <Trash className="w-[40px] h-[40px] rounded-full text-center m-2" />
             </button>
           </div>
-          <audio className="flex flex-grow rounded-full bg-[#fffffb]" controls src={audioURL} />
           <div className="flex items-center justify-center">
-            <button className="bg-[#ff6b6c] rounded-full text-[#fffffb] font-bold max-w-3xl p-2 py-2 px-4 shadow-md hover:bg-[#ffc145] hover:text-[#5b5f97]">
-              Enviar para Transcrição
-            </button>
+          <button className="bg-[#ff6b6c] rounded-full text-[#fffffb] font-bold max-w-3xl p-2 py-2 px-4 shadow-md hover:bg-[#ffc145] hover:text-[#5b5f97]">
+          Enviar para Transcrição
+          </button>
           </div>
         </>
       ) : (
