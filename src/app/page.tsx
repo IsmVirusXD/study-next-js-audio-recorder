@@ -21,7 +21,7 @@ export default function Home() {
 
   const language = ["Português"];
   // , "Inglês", "Espanhol"]
-  const audioRecord_Options = ["MediaRecorderAPI", "Biblioteca 01","SpeechRecognizer"];
+  const audioRecord_Options = ["MediaRecorderAPI", "RecordRTC","SpeechRecognizer"];
   const trancription_Options = ["Biblioteca02", "Bilioteca03", "SpeechRecognizer"];
 
   return (
