@@ -93,7 +93,7 @@ export function MediaRecorderApi() {
         </div>
       )}
       {/* Adudio Player */}
-      {audioURL ? (
+      {/* {audioURL ? (
         <>
           <div className="text-lg shadow-md text-[#5b5f97] rounded-full items-center justify-center flex flex-row gap-4 flex-1 max-h-20 p-5 bg-[#fffffb]">
             <button className=" bg-[#5b5f97] text-[#fffffb] hover:bg-[#ffc145] hover:text-[#5b5f97] content-center rounded-full">
@@ -131,7 +131,7 @@ export function MediaRecorderApi() {
             </button>
           </div>
         </>
-      )}
+      )} */}
     </>
   );
 }
