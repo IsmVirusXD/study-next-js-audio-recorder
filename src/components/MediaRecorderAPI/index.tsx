@@ -3,7 +3,6 @@ import { Mic, Play, Square, Send, Trash } from "lucide-react";
 
 export function MediaRecorderApi() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
   const [audioURL, setAudioURL] = useState<string | null>(null);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -44,7 +43,7 @@ export function MediaRecorderApi() {
      };
 
      mediaRecorder.onstop = () => {
-       const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+       const blob = new Blob(chunksRef.current, { type: "audio/mp3" });
        const url = URL.createObjectURL(blob);
        setAudioURL(url);
      };
@@ -92,7 +91,7 @@ export function MediaRecorderApi() {
           </p>
         </div>
       )}
-      {<audio controls src={audioURL} />}
+      {<audio controls src={audioURL!} />}
       {/* Adudio Player */}
       {/* {audioURL ? (
         <>
