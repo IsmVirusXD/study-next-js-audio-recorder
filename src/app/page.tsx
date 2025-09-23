@@ -2,6 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Mic, Play, Square, Send, Trash } from "lucide-react";
 import { renderGravacao } from "@/functions/renderGravacao";
+import { renderTranscrption } from "@/functions/renderTranscription";
+import { SpeechRecognitionAPI } from "@/components/SpeechRecognitionAPI";
 
 export default function Home() {
   const [text, setText] = useState("Aguardando Gravação de Audio");
@@ -19,12 +21,8 @@ export default function Home() {
 
   const language = ["Português"];
   // , "Inglês", "Espanhol"]
-  const audioRecord_Options = [
-    "MediaRecorderAPI",
-    "Biblioteca02",
-    "Biblioteca03",
-  ];
-  const trancription_Options = ["Biblioteca04", "Biblioteca05", "Biblioteca06"];
+  const audioRecord_Options = ["MediaRecorderAPI", "Biblioteca 01","SpeechRecognizer"];
+  const trancription_Options = ["Biblioteca02", "Bilioteca03", "SpeechRecognizer"];
 
   return (
     <main className="bg-[#b8b8d1] h-screen w-screen p-8 flex flex-row">
@@ -41,17 +39,13 @@ export default function Home() {
             Compatibilidade para React e Java
           </h3>
         </div>
-        {/* Gravador */}
-        {renderGravacao(audioRecorderSeleccted)}
-        {/* Text Transcribe */}
-        {trancricao ? (
-          <div className="text-lg shadow-md text-[#5b5f97] flex flex-5 rounded-4xl p-10 bg-[#fffffb]">
-            {text}
-          </div>
+        {audioRecorderSeleccted === "SpeechRecognizer" ? (
+          <SpeechRecognitionAPI />
         ) : (
-          <div className="text-lg shadow-md text-[#5b5f97] flex flex-5 rounded-4xl p-10 bg-[#fffffb] opacity-45">
-            Envie uma gravação para começarmos a transcrição
-          </div>
+          <>
+            {renderGravacao(audioRecorderSeleccted)}
+            {renderTranscrption(transcriptionSeleccted)}
+          </>
         )}
       </div>
       {/* Configuration */}
@@ -70,7 +64,12 @@ export default function Home() {
                 <button
                   key={audioRecorder}
                   className="bg-[#ffc145] rounded-full text-[#5b5f97] font-bold max-w-3xl py-2 px-4 m-2"
-                  onClick={() => setAudioRecorderSelected(audioRecorder)}
+                  onClick={() => {
+                    if (audioRecorder == "SpeechRecognizer") {
+                      setTranscriptionSelected(audioRecorder);
+                    }
+                    setAudioRecorderSelected(audioRecorder);
+                  }}
                 >
                   {audioRecorder}
                 </button>
@@ -78,8 +77,13 @@ export default function Home() {
                 <button
                   key={audioRecorder}
                   className="bg-[#6b6f97] rounded-full text-[#fffffb] font-bold max-w-3xl py-2 px-4 m-2 hover:bg-[#ffc145] hover:text-[#5b5f97]"
-                  onClick={() => setAudioRecorderSelected(audioRecorder)}
-                >
+                  onClick={() => {
+                    if (audioRecorder == "SpeechRecognizer") {
+                      setTranscriptionSelected(audioRecorder);
+                    }
+                    setAudioRecorderSelected(audioRecorder);
+                  }}
+                > 
                   {audioRecorder}
                 </button>
               )
@@ -95,7 +99,12 @@ export default function Home() {
                 <button
                   key={trans}
                   className="bg-[#ffc145] rounded-full text-[#5b5f97] font-bold max-w-3xl py-2 px-4 m-2"
-                  onClick={() => setTranscriptionSelected(trans)}
+                  onClick={() => {
+                    if (trans == "SpeechRecognizer") {
+                      setAudioRecorderSelected(trans);
+                    }
+                    setTranscriptionSelected(trans);
+                  }}
                 >
                   {trans}
                 </button>
@@ -103,7 +112,12 @@ export default function Home() {
                 <button
                   key={trans}
                   className="bg-[#6b6f97] rounded-full text-[#fffffb] font-bold max-w-3xl py-2 px-4 m-2 hover:bg-[#ffc145] hover:text-[#5b5f97]"
-                  onClick={() => setTranscriptionSelected(trans)}
+                  onClick={() => {
+                    if (trans == "SpeechRecognizer") {
+                      setAudioRecorderSelected(trans);
+                    }
+                    setTranscriptionSelected(trans);
+                  }}
                 >
                   {trans}
                 </button>
