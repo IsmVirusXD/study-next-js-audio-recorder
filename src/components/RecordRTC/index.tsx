@@ -1,21 +1,56 @@
 import { useEffect, useRef, useState } from "react";
 import { Mic, Play, Square, Send, Trash } from "lucide-react";
+import dynamic from "next/dynamic";
 
 export function RecordRTC() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [audioURL, setAudioURL] = useState<string | null>(null);
 
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const mediaRecorderRef = useRef<any | null>(null);
   const audioStreamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
 
-  const stopRecording= () => {
-    console.log("Stop Recording")
+  let RecordRTC: any;
+
+  if (typeof window !== "undefined") {
+    RecordRTC = require("recordrtc");
   }
 
-  const startRecording = () => {
-    console.log("Start Log")
-  }
+  const stopRecording = async () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stopRecording(() => {
+        const blob: Blob = mediaRecorderRef.current.getBlob();
+        const url = URL.createObjectURL(blob);
+        setAudioURL(url);
+      });
+
+      if (audioStreamRef.current) {
+        audioStreamRef.current.getTracks().forEach((track) => track.stop());
+      }
+
+      setIsRecording(false);
+    }
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioStreamRef.current = stream;
+
+      const recorder = new RecordRTC(stream, {
+        type: "audio",
+        mimeType: "audio/mp3",
+      });
+
+      recorder.startRecording();
+      mediaRecorderRef.current = recorder;
+      setIsRecording(true);
+    } catch (error) {
+      console.error("Erro Microfone", error);
+    }
+  };
+
+  
 
   return (
     <>
